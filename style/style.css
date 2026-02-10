@@ -175,6 +175,8 @@ body {
   display: inline-block;
   max-width: 55%;
   height: auto;
+  mask-image: radial-gradient(circle, black 60%, transparent 100%);
+  -webkit-mask-image: radial-gradient(circle, black 60%, transparent 100%);
 }
 
 .baloons img {
@@ -296,6 +298,207 @@ body {
   color: #ff69b4;
   transform: scale(1.2);
   cursor: pointer;
+}
+
+/* Splash Screen Styles */
+#splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 99999;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+#splash-screen.fade-out {
+  opacity: 0;
+  transform: scale(1.1);
+  pointer-events: none;
+}
+
+.splash-content {
+  text-align: center;
+  animation: fadeInUp 1s ease;
+}
+
+.splash-title {
+  font-family: "Klee One", cursive;
+  font-size: 4rem;
+  color: white;
+  margin: 0 0 20px 0;
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  animation: pulse 2s infinite;
+}
+
+.splash-subtitle {
+  font-family: "Marmelad", sans-serif;
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.9);
+  margin: 0 0 40px 0;
+}
+
+.start-button {
+  background: linear-gradient(135deg, #ff6b9d 0%, #c06c84 100%);
+  color: white;
+  border: none;
+  padding: 15px 40px; /* Dikurangi padding untuk accommodate image */
+  font-size: 24px;
+  font-family: "Balsamiq Sans", sans-serif;
+  border-radius: 50px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 15px;
+  box-shadow: 0 10px 30px rgba(255, 107, 157, 0.5);
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  min-height: 80px; /* Tinggi minimum untuk accommodate image */
+}
+
+.start-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+  transform: translate(-50%, -50%);
+  transition: width 0.6s, height 0.6s;
+}
+
+.start-button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 15px 40px rgba(255, 107, 157, 0.7);
+}
+
+.start-button:hover::before {
+  width: 300px;
+  height: 300px;
+}
+
+.start-button:active {
+  transform: scale(0.95);
+}
+
+.button-icon {
+  font-size: 28px;
+  animation: heartbeat 1.5s infinite;
+  position: relative;
+  z-index: 1;
+}
+
+.start-button:hover .button-image {
+  transform: scale(1.1) rotate(5deg);
+}
+
+.button-image.circle {
+  border-radius: 50%;
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+}
+
+.button-image {
+  height: 60px;
+  width: auto;
+  max-width: 80px;
+  object-fit: contain;
+  position: relative;
+  z-index: 1;
+  border-radius: 10px;
+  transition: transform 0.3s ease;
+}
+
+.button-text {
+  position: relative;
+  z-index: 1;
+}
+
+.splash-hint {
+  font-family: "Marmelad", sans-serif;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 30px;
+  font-style: italic;
+}
+
+/* Animations */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@keyframes heartbeat {
+  0%, 100% {
+    transform: scale(1);
+  }
+  10%, 30% {
+    transform: scale(1.2);
+  }
+  20%, 40% {
+    transform: scale(1);
+  }
+}
+
+/* Hide audio player initially */
+.custom-audio-player {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+}
+
+#audio {
+  margin-top: 20px;
+}
+
+.custom-audio-player.show {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Mobile Responsive for Splash */
+@media screen and (max-width: 500px) {
+  .splash-title {
+    font-size: 2.5rem;
+    padding: 0 20px;
+  }
+  
+  .splash-subtitle {
+    font-size: 1.2rem;
+    padding: 0 20px;
+  }
+  
+  .start-button {
+    padding: 15px 40px;
+    font-size: 20px;
+  }
+  
+  .button-icon {
+    font-size: 24px;
+  }
 }
 
 /* Media Queries */

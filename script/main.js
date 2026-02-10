@@ -60,7 +60,6 @@ const animationTimeline = () => {
     .from(".three", 0.7, {
       opacity: 0,
       y: 10,
-      // scale: 0.7
     })
     .to(
       ".three",
@@ -205,7 +204,6 @@ const animationTimeline = () => {
       {
         opacity: 0,
         y: -50,
-        // scale: 0.3,
         rotation: 150,
         skewX: "30deg",
         ease: Elastic.easeOut.config(1, 0.5),
@@ -314,9 +312,6 @@ const animationTimeline = () => {
       "+=1",
     );
 
-  // tl.seek("currentStep");
-  // tl.timeScale(2);
-
   // Restart Animation on click
   const replyBtn = document.getElementById("replay");
   replyBtn.addEventListener("click", () => {
@@ -351,4 +346,28 @@ const resolveFetch = () => {
   });
 };
 
-resolveFetch().then(animationTimeline());
+// Initialize everything
+resolveFetch().then(() => {
+  // Start button handler
+  const startButton = document.getElementById('startButton');
+  const splashScreen = document.getElementById('splash-screen');
+  const audio = document.getElementById('audio');
+  
+  startButton.addEventListener('click', () => {
+    // Play audio
+    audio.play().then(() => {
+      console.log('Music started!');
+    }).catch(err => {
+      console.log('Audio play error:', err);
+    });
+    
+    // Hide splash screen
+    splashScreen.classList.add('fade-out');
+    setTimeout(() => {
+      splashScreen.style.display = 'none';
+    }, 800);
+    
+    // Start animation timeline
+    animationTimeline();
+  });
+});
